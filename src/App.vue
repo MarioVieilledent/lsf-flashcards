@@ -1,52 +1,73 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import Greet from "./components/Greet.vue";
+import Header from "./components/Header.vue";
+// import Nav from "./components/Nav.vue";
+import Main from "./components/Main.vue";
+import { loadTheme } from "./app";
+import { loadCards } from "./cards";
+
+// At the start of the app
+// 1) Get the theme of the app
+loadTheme();
+// 2) Get all the cards
+loadCards();
+
 </script>
 
 <template>
   <div class="container">
-    <h1>Welcome to Tauri!</h1>
-
-    <div class="row">
-      <a href="https://vitejs.dev" target="_blank">
-        <img src="/vite.svg" class="logo vite" alt="Vite logo" />
-      </a>
-      <a href="https://tauri.app" target="_blank">
-        <img src="/tauri.svg" class="logo tauri" alt="Tauri logo" />
-      </a>
-      <a href="https://vuejs.org/" target="_blank">
-        <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-      </a>
+    <div class="top">
+      <Header />
     </div>
-
-    <p>Click on the Tauri, Vite, and Vue logos to learn more.</p>
-
-    <p>
-      Recommended IDE setup:
-      <a href="https://code.visualstudio.com/" target="_blank">VS Code</a>
-      +
-      <a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a>
-      +
-      <a href="https://github.com/tauri-apps/tauri-vscode" target="_blank"
-        >Tauri</a
-      >
-      +
-      <a href="https://github.com/rust-lang/rust-analyzer" target="_blank"
-        >rust-analyzer</a
-      >
-    </p>
-
-    <Greet />
+    <div class="bottom">
+      <!-- <div class="left">
+        <Nav />
+      </div> -->
+      <div class="right">
+        <Main />
+      </div>
+    </div>
   </div>
 </template>
 
-<style scoped>
-.logo.vite:hover {
-  filter: drop-shadow(0 0 2em #747bff);
-}
+<style scoped lang="scss">
+$header-height: 50px;
+$nav-width: 0px;
 
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #249b73);
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+    background-color: #fff;
+
+  .top {
+    width: 100%;
+    height: $header-height;
+    // background-color: #fff;
+  }
+
+  .bottom {
+    display: flex;
+    width: 100%;
+    height: calc(100% - $header-height);
+
+    .left {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: $nav-width;
+      // background-color: #ddd;
+    }
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: calc(100% - $nav-width);
+      // background-color: #aaa;
+    }
+  }
 }
 </style>
