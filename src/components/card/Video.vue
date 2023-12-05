@@ -17,10 +17,13 @@ const buildUrlDicoElix = (s: string, n: string, nb: number) => `https://www.elix
 const linksToTry: Ref<string[]> = ref([]);
 
 // Watch for changes in myValue
-watch(props.card, (newValue) => {
-    loadVideos(newValue.word);
+watch(props.card, (newValue, oldValue) => {
+    if (oldValue.word !== newValue.word) {
+        loadVideos(newValue.word);
+    }
 });
 
+// Debounce for loading videos
 const loadVideos = debounce((newValue: string) => {
     videos.value.style.display = 'none';
     linksToTry.value = [];

@@ -26,6 +26,7 @@ body {
 button, input, select {
   border: none;
   cursor: pointer;
+  background-color: transparent;
 }
 
 button:focus, input:focus, select:focus {

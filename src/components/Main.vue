@@ -5,7 +5,7 @@ import Card from "./card/Card.vue";
 import CardList from "./CardList.vue";
 import { Ref, ref } from 'vue';
 
-const currentTab: Ref<TypeOfCard> = ref('guess_lsf_to_fr');
+const currentTab: Ref<TypeOfCard> = ref('cards_list');
 
 const currentCardIndex: Ref<number> = ref(0);
 
@@ -25,7 +25,6 @@ function openGuessTab(): void {
 
 // Open the list of all cards
 function openListTab(): void {
-    console.log(cards);
     currentTab.value = 'cards_list';
 }
 

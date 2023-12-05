@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Ref, onMounted, ref } from 'vue';
 import { Card } from '../../types';
-import { addCard, newEmptyCard } from '../../cards';
+import { addCard, editWord, newEmptyCard } from '../../cards';
 import Video from "./Video.vue";
 
 const props = defineProps<{
@@ -16,7 +16,7 @@ const inputWord: Ref<any> = ref(null);
 const revealed: Ref<boolean> = ref(false);
 
 function answer(level: 'hard' | 'ok' | 'easy'): void {
-    
+    console.log(level);
 }
 
 function addNewCard(): void {
@@ -25,6 +25,12 @@ function addNewCard(): void {
 
 function reveal(): void {
     revealed.value = true;
+}
+
+function editCurrentWord(): void {
+    setTimeout(() => {
+        editWord(card.value);
+    }, 50);
 }
 
 onMounted(() => {
@@ -40,12 +46,40 @@ onMounted(() => {
                 card.word }}</span>
         </div>
         <div class="mid">
-            <Video v-if="!(model === 'guess_lsf_to_fr' && !revealed)" :card="card" />
-            <!-- <div class="left">
+            <div class="top">
+                <Video v-if="!(model === 'guess_lsf_to_fr' && !revealed)" :card="card" />
             </div>
-            <div class="right">
+            <div class="bottom">
                 <input type="text" class="observation" v-model="card.description">
-            </div> -->
+                <div class="parameter">
+                    <img src="/public/main_dominante.gif" alt="Logo main dominante" title="Main dominante">
+                    <input type="text" @input="editCurrentWord" v-model="card.parameters.configMainDominante">
+                </div>
+                <div class="parameter">
+                    <img src="/public/main_dominee.gif" alt="Logo main dominée" title="Main dominée">
+                    <input type="text" @input="editCurrentWord" v-model="card.parameters.configMainDominee">
+                </div>
+                <div class="parameter">
+                    <img src="/public/emplacement.gif" alt="Logo emplacement" title="Emplacement">
+                    <input type="text" @input="editCurrentWord" v-model="card.parameters.emplacement">
+                </div>
+                <div class="parameter">
+                    <img src="/public/paume_dominante.gif" alt="Logo paume dominante" title="Paume dominante">
+                    <input type="text" @input="editCurrentWord" v-model="card.parameters.orientationPaumeMainDominante">
+                </div>
+                <div class="parameter">
+                    <img src="/public/paume_dominee.gif" alt="Logo paume dominante" title="Paume dominante">
+                    <input type="text" @input="editCurrentWord" v-model="card.parameters.orientationPaumeMainDominee">
+                </div>
+                <div class="parameter">
+                    <img src="/public/mouvement.gif" alt="Logo mouvement" title="Mouvement">
+                    <input type="text" @input="editCurrentWord" v-model="card.parameters.mouvement">
+                </div>
+                <div class="parameter">
+                    <img src="/public/expression_faciale.gif" alt="Logo expression faciale" title="Expression faciale">
+                    <input type="text" @input="editCurrentWord" v-model="card.parameters.expressionFaciale">
+                </div>
+            </div>
         </div>
         <div class="bot">
             <template v-if="model === 'new_card'">
@@ -100,22 +134,38 @@ onMounted(() => {
         margin: 24px 0px 24px 0px;
         height: calc(100% - 144px);
         display: flex;
+        flex-direction: column;
         overflow: auto;
 
-        .left {
+        .top {
             display: flex;
-            flex-direction: column;
-            width: 50%;
-            height: 100%;
+            height: 50%;
         }
 
-        .right {
+        .bottom {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 50%;
-            height: 100%;
+            height: 50%;
+
+            .parameter {
+                display: flex;
+                align-items: center;
+                margin-bottom: 6px;
+
+                img {
+                    width: 30px;
+                    margin-right: 12px;
+                }
+
+                input {
+                    background-color: #c0c0c0;
+                    height: 24px;
+                    border-radius: 6px;
+                    padding: 0px 6px;
+                }
+            }
         }
     }
 
